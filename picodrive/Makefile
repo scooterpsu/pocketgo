@@ -1,4 +1,11 @@
-TARGET ?= PicoDrive
+CHAINPREFIX := /opt/miyoo
+CROSS_COMPILE := /opt/miyoo/bin/arm-linux-
+
+BUILDTIME=$(shell date +'\"%Y-%m-%d %H:%M\"')
+
+CC = $(CROSS_COMPILE)gcc
+
+TARGET ?= picodrive
 DEBUG ?= 0
 CFLAGS += -Wall -g
 CFLAGS += -I.
@@ -52,6 +59,8 @@ endif
 endif
 
 -include Makefile.local
+
+PLATFORM := miyoo
 
 ifeq "$(PLATFORM)" "miyoo"
 OBJS += platform/opendingux/inputmap.o

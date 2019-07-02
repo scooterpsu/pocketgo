@@ -32,7 +32,7 @@ check_define()
 # "" means "autodetect".
 
 platform_list="generic pandora gp2x opendingux rpi1 rpi2 miyoo"
-platform="generic"
+platform="miyoo"
 sound_driver_list="oss alsa sdl"
 sound_drivers=""
 have_armv5=""
@@ -50,8 +50,14 @@ optimize_arm926ej="no"
 optimize_arm920="no"
 
 # hardcoded stuff
-CC="${CC-${CROSS_COMPILE}gcc}"
-CXX="${CXX-${CROSS_COMPILE}g++}"
+
+CHAINPREFIX="/opt/miyoo"
+CROSS_COMPILE="/opt/miyoo/bin/arm-linux-"
+
+
+
+CC="${CROSS_COMPILE}gcc"
+CXX="${CROSS_COMPILE}g++"
 AS="${AS-${CROSS_COMPILE}as}"
 STRIP="${STRIP-${CROSS_COMPILE}strip}"
 test -n "$SDL_CONFIG" || SDL_CONFIG="`$CC --print-sysroot 2> /dev/null || true`/usr/bin/sdl-config"
