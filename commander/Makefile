@@ -23,7 +23,7 @@ endif
 
 OUTDIR:=output/$(CONFIG)
 
-EXECUTABLE:=$(OUTDIR)/DinguxCommander
+EXECUTABLE:=$(OUTDIR)/commander
 
 OBJS:=main.o sdlutils.o resourceManager.o fileLister.o commander.o panel.o \
       dialog.o window.o fileutils.o viewer.o keyboard.o
