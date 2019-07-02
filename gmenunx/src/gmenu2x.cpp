@@ -789,11 +789,11 @@ void GMenu2X::main() {
 				iconTrayShift++;
 			}
 #endif
-			if (iconTrayShift < 2) {
+			/*if (iconTrayShift < 2) {
 				// Menu indicator
 				iconMenu->blit(s, sectionBarRect.x + sectionBarRect.w - 38 + iconTrayShift * 20, sectionBarRect.y + sectionBarRect.h - 18);
 				iconTrayShift++;
-			}
+			}*/
 		}
 		s->flip();
 

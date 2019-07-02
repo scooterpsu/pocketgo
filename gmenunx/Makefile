@@ -1,7 +1,7 @@
 TARGET=miyoo
 
 CHAINPREFIX := /opt/miyoo
-CROSS_COMPILE := arm-linux-
+CROSS_COMPILE := /opt/miyoo/bin/arm-linux-
 
 BUILDTIME=$(shell date +'\"%Y-%m-%d %H:%M\"')
 

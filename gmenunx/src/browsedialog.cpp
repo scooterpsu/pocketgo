@@ -43,11 +43,11 @@ bool BrowseDialog::exec() {
 	this->bg->box(gmenu2x->listRect, gmenu2x->skinConfColors[COLOR_LIST_BG]);
 
 	if (!showFiles && allowSelectDirectory) {
-		gmenu2x->drawButton(this->bg, "start", gmenu2x->tr["Select"]);
+		gmenu2x->drawButton(this->bg, "a", gmenu2x->tr["Select"]);
 	} else {
+		gmenu2x->drawButton(this->bg, "x", gmenu2x->tr["Folder up"],
 		gmenu2x->drawButton(this->bg, "a", gmenu2x->tr["Select"],
-		gmenu2x->drawButton(this->bg, "b", gmenu2x->tr["Folder up"],
-		gmenu2x->drawButton(this->bg, "start", gmenu2x->tr["Exit"], 5)));
+		gmenu2x->drawButton(this->bg, "b", gmenu2x->tr["Cancel"], 5)));
 	}
 
 	uint32_t tickStart = SDL_GetTicks();
@@ -160,12 +160,12 @@ bool BrowseDialog::exec() {
 uint32_t BrowseDialog::getAction() {
 	uint32_t action = BD_NO_ACTION;
 
-	if (gmenu2x->input[SETTINGS]) action = BD_ACTION_CLOSE;
+	if (gmenu2x->input[CANCEL]) action = BD_ACTION_CLOSE;
 	else if (gmenu2x->input[UP]) action = BD_ACTION_UP;
 	else if (gmenu2x->input[PAGEUP] || gmenu2x->input[LEFT]) action = BD_ACTION_PAGEUP;
 	else if (gmenu2x->input[DOWN]) action = BD_ACTION_DOWN;
 	else if (gmenu2x->input[PAGEDOWN] || gmenu2x->input[RIGHT]) action = BD_ACTION_PAGEDOWN;
-	else if (gmenu2x->input[CANCEL]) action = BD_ACTION_GOUP;
+	else if (gmenu2x->input[MANUAL]) action = BD_ACTION_GOUP;
 	else if (gmenu2x->input[CONFIRM]) action = BD_ACTION_SELECT;
 	else if (gmenu2x->input[CANCEL] || gmenu2x->input[MENU]) action = BD_ACTION_CANCEL;
 	return action;

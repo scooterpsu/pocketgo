@@ -68,12 +68,12 @@ int Selector::exec(int startSelection) {
 	this->bg->box(gmenu2x->listRect, gmenu2x->skinConfColors[COLOR_LIST_BG]);
 
 	if (link->getSelectorBrowser()) {
+		gmenu2x->drawButton(this->bg, "x", gmenu2x->tr["Folder up"],
 		gmenu2x->drawButton(this->bg, "a", gmenu2x->tr["Select"],
-		gmenu2x->drawButton(this->bg, "b", gmenu2x->tr["Folder up"],
-		gmenu2x->drawButton(this->bg, "start", gmenu2x->tr["Exit"], 5)));
+		gmenu2x->drawButton(this->bg, "b", gmenu2x->tr["Cancel"], 5)));
 	} else {
 		gmenu2x->drawButton(this->bg, "a", gmenu2x->tr["Select"],
-		gmenu2x->drawButton(this->bg, "start", gmenu2x->tr["Exit"], 5));
+		gmenu2x->drawButton(this->bg, "b", gmenu2x->tr["Cancel"], 5));
 	}
 
 	prepare(&fl, &screens, &titles);
@@ -162,12 +162,12 @@ int Selector::exec(int startSelection) {
 			} else if ( gmenu2x->input[PAGEDOWN] || gmenu2x->input[RIGHT] ) {
 				selected += numRows;
 				if (selected >= fl.size()) selected = fl.size() - 1;
-			} else if ( gmenu2x->input[SETTINGS] ) {
+			} else if ( gmenu2x->input[CANCEL] ) {
 				close = true;
 				result = false;
 			// } else if ( gmenu2x->input[MENU] ) {
 				// gmenu2x->editLink();
-			} else if ( gmenu2x->input[CANCEL] && link->getSelectorBrowser()) {
+			} else if ( gmenu2x->input[MANUAL] && link->getSelectorBrowser()) {
 				string::size_type p = dir.rfind("/", dir.size() - 2);
 				dir = dir.substr(0, p + 1);
 				prepare(&fl, &screens, &titles);
