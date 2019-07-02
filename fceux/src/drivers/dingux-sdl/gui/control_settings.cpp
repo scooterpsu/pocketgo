@@ -211,9 +211,9 @@ int RunControlSettings()
 				else if (iBtnVal == DefaultGamePad[0][1])
 					sprintf(cBtn, "%s", "B");
 				else if (iBtnVal == DefaultGamePad[0][8])
-					sprintf(cBtn, "%s", "Y");
-				else if (iBtnVal == DefaultGamePad[0][9])
 					sprintf(cBtn, "%s", "X");
+				else if (iBtnVal == DefaultGamePad[0][9])
+					sprintf(cBtn, "%s", "Y");
 				else
 					sprintf(cBtn, "%s", "<empty>");
 

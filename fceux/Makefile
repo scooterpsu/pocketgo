@@ -1,3 +1,5 @@
+# Possible values : 0, YES, APPLY
+PROFILE = APPLY
 
 SRC = src/
 
@@ -204,10 +206,11 @@ OBJS = $(CORE_OBJS) $(BOARDS_OBJS) $(INPUT_OBJS) $(MAPPERS_OBJS) $(UTILS_OBJS) \
 
 TOOLCHAIN=
 BINDIR=
-CC = arm-linux-gcc
-CXX = arm-linux-g++
-LD = arm-linux-g++
-AS = arm-linux-as
+CROSS_COMPILE := /opt/miyoo/bin/arm-linux-
+CC = $(CROSS_COMPILE)gcc
+CXX = $(CROSS_COMPILE)g++
+LD = $(CROSS_COMPILE)g++
+AS = $(CROSS_COMPILE)as
 
 INCLUDEDIR=$(TOOLCHAIN)/include
 CFLAGS = -I$(INCLUDEDIR) -I$(SRC)
@@ -228,13 +231,21 @@ CFLAGS += -DDINGUX \
 	  -DHAVE_ASPRINTF \
 	  -DFRAMESKIP \
 	  -D_REENTRANT \
-	  -I$(INCLUDEDIR)/SDL -D_GNU_SOURCE=1 -D_REENTRANT
-CXXFLAGS += $(CFLAGS)
+	  -I$(INCLUDEDIR)/SDL -D_GNU_SOURCE=1 -D_REENTRANT -DFRAMESKIP
 LDFLAGS  += $(CC_OPTS)
 ifdef STATIC
 LDFLAGS  += -static-libgcc -static-libstdc++
 endif
-LIBS = -L$(LIBDIR) `sdl-config --libs` -lz -lm
+LIBS = -L `/opt/miyoo/arm-miyoo-linux-uclibcgnueabi/sysroot/usr/bin/sdl-config --libs` -lz -lm
+
+ifeq ($(PROFILE), YES)
+CFLAGS 		+= -fprofile-generate=/mnt/profile -fprofile-arcs
+LIBS		+= -lgcov
+else ifeq ($(PROFILE), APPLY)
+CFLAGS		+= -fprofile-use
+endif
+
+CXXFLAGS += $(CFLAGS)
 
 TARGET = fceux
 

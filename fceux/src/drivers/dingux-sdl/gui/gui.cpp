@@ -261,7 +261,7 @@ static int cmd_exit() {
 /* MAIN MENU */
 
 static MenuEntry main_menu[] = { 
-		{ "Load ROM", "Load new rom or movie", load_rom },
+		//{ "Load ROM", "Load new rom or movie", load_rom },
 		{ "Reset", "Reset NES", reset_nes },
 		{ "Flip disc", "Switch side or disc (FDS)", flip_disc },
 		{ "Save state", "Save current state", save_state },
@@ -338,13 +338,13 @@ void FCEUGUI_Run() {
 				index--;
 				spy -= 16;
 			} else {
-				index = 7;
+				index = 6;
 				spy = 72 + 16*index;
 			}
 		}
 
 		if (parsekey(DINGOO_DOWN, 0)) {
-			if (index < 7) {
+			if (index < 6) {
 				index++;
 				spy += 16;
 			} else {
@@ -355,10 +355,10 @@ void FCEUGUI_Run() {
 
 		if (parsekey(DINGOO_A)) {
 			done = main_menu[index].command();
-			if(index == 3) load_preview();
+			if(index == 2) load_preview();
 		}
 
-		if (index == 3 || index == 4) {
+		if (index == 2 || index == 3) {
 			if (parsekey(DINGOO_RIGHT, 0)) {
 				if (g_slot < 9) {
 					g_slot++;
@@ -393,7 +393,7 @@ void FCEUGUI_Run() {
 			DrawChar(gui_screen, SP_SELECTOR, 56, spy);
 			DrawChar(gui_screen, SP_SELECTOR, 77, spy);
 
-			if (index == 3 || index == 4) {
+			if (index == 2 || index == 3) {
 				// Draw state preview
 				DrawChar(gui_screen, SP_PREVIEWBLOCK, 184, 73);
 				draw_preview((unsigned short *)gui_screen->pixels, 185, 100);
@@ -401,7 +401,7 @@ void FCEUGUI_Run() {
 					DrawChar(gui_screen, SP_NOPREVIEW, 207, 135);
 			}
 
-			if (index == 5) {
+			if (index == 4) {
 				DrawChar(gui_screen, SP_PREVIEWBLOCK, 184, 73);
 				draw_shot_preview((unsigned short *)gui_screen->pixels, 185, 100);
 			}
@@ -410,7 +410,7 @@ void FCEUGUI_Run() {
 			DrawText(gui_screen, g_romname, 96, 37);
 
 			// Draw menu
-			for (i = 0, y = 72; i < 8; i++, y += 16) {
+			for (i = 0, y = 72; i < 7; i++, y += 16) {
 				DrawText(gui_screen, main_menu[i].name, 60, y);
 			}
 
@@ -418,7 +418,7 @@ void FCEUGUI_Run() {
 			DrawText(gui_screen, main_menu[index].info, 8, 225);
 
 			// If save/load state render slot preview and number
-			if (index == 3 || index == 4) {
+			if (index == 2 || index == 3) {
 				char tmp[32];
 				sprintf(tmp, "Slot %d", g_slot);
 				DrawText(gui_screen, tmp, 212, 80);
@@ -430,7 +430,7 @@ void FCEUGUI_Run() {
 			}
 
 			// If screenshot render current frame preview
-			if (index == 5) {
+			if (index == 4) {
 				DrawText(gui_screen, "Preview", 207, 80);
 			}
 

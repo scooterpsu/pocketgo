@@ -84,7 +84,7 @@ static void mouse_update(unsigned long key) {
 }
 
 // Frameskip
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 static void frameskip_update(unsigned long key) {
 	int val;
 	g_config->getOption("SDL.Frameskip", &val);
@@ -127,7 +127,7 @@ static SettingEntry
 		{ "Show FPS", "Show frames per second", "SDL.ShowFPS", showfps_update },
 		{ "Show mouse", "Show/hide mouse cursor", "SDL.ShowMouseCursor", show_mouse_update },
 		{ "Mouse speed", "Mouse cursor speed", "SDL.MouseSpeed", mouse_update },
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 		{ "Frameskip", "Frameskip [0-9]", "SDL.Frameskip", frameskip_update},
 #endif
 		{ "Custom palette", "Load custom palette", "SDL.Palette", custom_update },
@@ -139,7 +139,7 @@ int RunMainSettings() {
 	int done = 0, y, i;
 
 	int max_entries = 8;
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 	int menu_size = 9;
 #else
 	int menu_size = 8;
@@ -237,6 +237,8 @@ int RunMainSettings() {
 						strncpy(tmp, palname.substr(path_sz + 1, sz - 1
 								- path_sz).c_str(), 32);
 				} else if (!strncmp(st_menu[i].name, "Mouse speed", 11)) {
+					sprintf(tmp, "%d", itmp);
+				} else if (!strncmp(st_menu[i].name, "Frameskip", 12)) {
 					sprintf(tmp, "%d", itmp);
 				} else
 					sprintf(tmp, "%s", itmp ? "on" : "off");
