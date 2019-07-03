@@ -127,7 +127,7 @@ void loadmenu_dispupdate(int romcount)
 #elif CYGWIN32
 	strcpy(disptxt[0],"  Snes9x4W v20101010");
 #else
-	strcpy(disptxt[0],"  Snes9x4D v20101010 for OpenDingux");
+	strcpy(disptxt[0],"  Snes9x4D v20101010 for PocketGo");
 #endif
 
 	//copy roms filenames to disp[] cache
@@ -311,14 +311,14 @@ char* menu_romselector()
 
 void menu_dispupdate(void)
 {
-	static char *Rates[8] = { "off", "8192", "11025", "16000", "22050", "32000", "44100", "48000" };
+	static char *Rates[8] = { "  Off", " 8192", "11025", "16000", "22050", "32000", "44100", "48000" };
 //	char temp[256];
 //	char disptxt[20][256];
 
 	//memset(GFX.Screen + 320*12*2,0x11,320*200*2);
 	for(int y=12;y<=212;y++){
 		for(int x=10;x<246*2;x+=2){
-			memset(GFX.Screen + GFX.Pitch*y+x,0x11,2);
+			memset(GFX.Screen + GFX.Pitch*y+x,0x00,2);
 		}	
 	}
 #if CAANOO
@@ -326,7 +326,7 @@ void menu_dispupdate(void)
 #elif CYGWIN32
 	strcpy(disptxt[0],"Snes9x4W v20101010");
 #else
-	strcpy(disptxt[0],"Snes9x4D v20101010 for OpenDingux");
+	strcpy(disptxt[0],"Snes9x4D v20101010 for PocketGo");
 #endif
 	strcpy(disptxt[1],"");
 	strcpy(disptxt[2],"Reset Game           ");
@@ -338,7 +338,7 @@ void menu_dispupdate(void)
 	strcpy(disptxt[8],"Full Screen         ");
 	strcpy(disptxt[9],"Frameskip              ");
 	strcpy(disptxt[10],"Sound Rate           ");
-	strcpy(disptxt[11],"Credit              ");
+	strcpy(disptxt[11],"Credits              ");
 	strcpy(disptxt[12],"Exit");
 
 	sprintf(temp,"%s%d",disptxt[5],SaveSlotNum);
@@ -822,7 +822,7 @@ void ShowCredit()
 #ifdef CAANOO
 	while( SDL_JoystickGetButton(keyssnes, sfc_key[B_1])!=TRUE );
 #else
-	while(keyssnes[sfc_key[B_1]] != SDL_PRESSED);
+	while(keyssnes[sfc_key[QUIT]] != SDL_PRESSED);
 #endif
 
 	return;

@@ -1,7 +1,10 @@
+# Possible values : 0, YES, APPLY
+PROFILE = 0
+
 #ZSNES_FX=1
 #ASMCPU=1
 #SPC700ASM=1
-NETPLAY=1
+NETPLAY=0
 UNZIP=1
 #GLIDE=1
 #OPENGL=1
@@ -121,8 +124,12 @@ LDLIBS         = `sdl-config --libs` -lSDL
 INCLUDES=
 
 OPTIMISE= -D_ZAURUS -O2 -ffast-math -fstrict-aliasing -fomit-frame-pointer -ftree-vectorize -funroll-all-loops -fpeel-loops -ftracer -funswitch-loops -finline-functions
-#-G 0 
-# -fprofile-use -ftest-coverage -fprofile-arcs
+
+ifeq ($(PROFILE), YES)
+OPTIMISE 		+= -fprofile-generate=/mnt/profile
+else ifeq ($(PROFILE), APPLY)
+OPTIMISE		+= -fprofile-use -fbranch-probabilities
+endif
 
 CCFLAGS = $(DEFAULT_CFLAGS) $(OPTIMISE) \
 -I. \

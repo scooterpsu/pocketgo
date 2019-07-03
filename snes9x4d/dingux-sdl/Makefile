@@ -4,6 +4,9 @@
 UNZIP=1
 CHEATS=1
 
+# Possible values : 0, YES, APPLY
+USE_PROFILE = APPLY
+
 FXOBJ = ../fxinst.o ../fxemu.o ../fxdbg.o
 FXDEFINES = -DEXECUTE_SUPERFX_PER_LINE
 FXNO_DEPENDS = zsnes_fx
@@ -44,22 +47,28 @@ OBJECTS += ../loadzip.o ../unzip/unzip.o ../unzip/explode.o ../unzip/unreduce.o 
 UNZIPDEFINES = -DUNZIP_SUPPORT
 endif
 
-TOOLCHAINDIR := 
+TOOLCHAIN = /opt/miyoo
 BINPATH    := 
 
 ARCH :=
 
-CCC		= arm-linux-g++
-CC		= arm-linux-gcc
-STRIP	= arm-linux-strip
-AS		= arm-linux-as
-GASM	= arm-linux-g++
+CCC		= $(TOOLCHAIN)/bin/arm-linux-g++
+CC		= $(TOOLCHAIN)/bin/arm-linux-gcc
+STRIP	= $(TOOLCHAIN)/bin/arm-linux-strip
+AS		= $(TOOLCHAIN)/bin/arm-linux-as
+GASM	= $(TOOLCHAIN)/bin/arm-linux-g++
 
 INCLUDES=
 
 OPTIMISE = -D_ZAURUS -O3 -march=armv5te -mtune=arm926ej-s \
 			-ffast-math -fomit-frame-pointer -fno-strength-reduce \
 			-finline-functions -funroll-loops
+			
+ifeq ($(USE_PROFILE), YES)
+PROFILE 		= -fprofile-generate=/mnt/profile
+else ifeq ($(USE_PROFILE), APPLY)
+PROFILE		= -fprofile-use -fbranch-probabilities
+endif
 
 CCFLAGS = $(OPTIMISE) $(PROFILE) \
 -I. \
@@ -87,14 +96,17 @@ CCFLAGS  += -I.
 
 LDLIBS  = -lSDL -lz -lm
 
+ifeq ($(USE_PROFILE), YES)
+LDLIBS		+= -lgcov
+endif
 
 .SUFFIXES: .o .cpp .c .cc .h .m .i .S .asm .obj
 
-all: snes9x4d.dge
+all: snes9x4d
 
-snes9x4d.dge: $(OBJECTS) 
+snes9x4d: $(OBJECTS) 
 	$(CCC) -o $@ $(OBJECTS) $(EXTRALIBS) $(LDLIBS) $(PROFILE)
-	$(STRIP) snes9x4d.dge
+	$(STRIP) snes9x4d
 
 .cpp.o:
 	$(CCC) -c $(CCFLAGS) $*.cpp -o $@
