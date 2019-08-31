@@ -8,10 +8,10 @@
 #define DINGOO_BUTTON_LEFT          276
 #define DINGOO_BUTTON_R             8
 #define DINGOO_BUTTON_L             9
-#define DINGOO_BUTTON_A             308
-#define DINGOO_BUTTON_B             306
-#define DINGOO_BUTTON_X             304
-#define DINGOO_BUTTON_Y             32
+#define DINGOO_BUTTON_A             306
+#define DINGOO_BUTTON_B             308
+#define DINGOO_BUTTON_X             32
+#define DINGOO_BUTTON_Y             304
 #define DINGOO_BUTTON_SELECT        27
 #define DINGOO_BUTTON_START         13
 #define DINGOO_BUTTON_END           305
